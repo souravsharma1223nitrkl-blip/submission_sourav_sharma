@@ -1,0 +1,70 @@
+/${robot}/slam_toolbox:
+  ros__parameters:
+    use_sim_time: true
+    mode: mapping
+
+    # Frames and topics of this robot
+    odom_frame: ${robot}/odom
+    map_frame: ${robot}/map
+    base_frame: ${robot}/base_footprint
+    scan_topic: /${robot}/scan
+    map_name: /${robot}/map            # default would be /map, which both robots would share
+    use_map_saver: false
+    enable_interactive_mode: false
+
+    # Solver (slam_toolbox defaults)
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    # Map / timing
+    resolution: 0.05
+    max_laser_range: ${laser_range}    # AMR-1: 8 m, AMR-2: 3.5 m
+    min_laser_range: 0.12
+    # A cell is occupied if more than this share of the laser passes through it were hits.
+    # Default 0.1: a person standing somewhere for a few scans stays an obstacle long after.
+    occupancy_threshold: 0.25
+    map_update_interval: ${map_update_interval}
+    transform_publish_period: 0.05
+    transform_timeout: 0.2
+    tf_buffer_duration: 30.0
+    minimum_time_interval: 0.5
+    throttle_scans: 1
+    stack_size_to_use: 40000000
+    debug_logging: false
+
+    # Scan matching / loop closure. Changed from the slam_toolbox defaults so the matcher trusts
+    # the (good) wheel odometry more: in the open hall a 3.5 m LiDAR sees almost nothing and in
+    # the five identical packing bays scans look alike, and with the defaults (search +-20 deg,
+    # nearly no odometry penalty) AMR-2's pose drifted by 1.3 m / 25 deg in testing.
+    use_scan_matching: true
+    use_scan_barycenter: true
+    minimum_travel_distance: 0.3
+    minimum_travel_heading: 0.3
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+    link_match_minimum_response_fine: 0.1
+    link_scan_maximum_distance: 1.5
+    loop_search_maximum_distance: 3.0
+    do_loop_closing: ${loop_closing}         # AMR-1 yes, AMR-2 no (short range, repetitive aisles)
+    loop_match_minimum_chain_size: 10
+    loop_match_maximum_variance_coarse: 3.0
+    loop_match_minimum_response_coarse: 0.35
+    loop_match_minimum_response_fine: 0.45
+    correlation_search_space_dimension: 0.3      # default 0.5: search +-0.15 m around odometry
+    correlation_search_space_resolution: 0.01
+    correlation_search_space_smear_deviation: 0.1
+    loop_search_space_dimension: 8.0
+    loop_search_space_resolution: 0.05
+    loop_search_space_smear_deviation: 0.03
+    distance_variance_penalty: 0.1               # default 0.5: penalise leaving the odometry pose
+    angle_variance_penalty: 0.05                 # default 1.0
+    fine_search_angle_offset: 0.00349
+    coarse_search_angle_offset: 0.1745           # default 0.349: search +-10 deg instead of +-20 deg
+    coarse_angle_resolution: 0.0349
+    minimum_angle_penalty: 0.5                   # default 0.9 (0.9 = odometry barely matters)
+    minimum_distance_penalty: 0.5
+    use_response_expansion: true

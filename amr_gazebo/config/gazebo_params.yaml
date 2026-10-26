@@ -1,0 +1,4 @@
+# Parameters of the Gazebo ROS node (gazebo_ros_init plugin)
+gazebo:
+  ros__parameters:
+    publish_rate: 100.0   # /clock rate in Hz (default 10)

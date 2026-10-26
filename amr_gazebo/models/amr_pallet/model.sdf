@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="amr_pallet">
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <pose>0 0 0.25 0 0 0</pose>
+        <geometry><box><size>1.80 0.80 0.50</size></box></geometry>
+      </collision>
+      <visual name="wood">
+        <pose>0 0 0.06 0 0 0</pose>
+        <geometry><box><size>1.80 0.80 0.12</size></box></geometry>
+        <material><ambient>0.55 0.40 0.25 1</ambient><diffuse>0.55 0.40 0.25 1</diffuse></material>
+      </visual>
+      <visual name="cartons">
+        <pose>0 0 0.31 0 0 0</pose>
+        <geometry><box><size>1.72 0.72 0.38</size></box></geometry>
+        <material><ambient>0.72 0.55 0.35 1</ambient><diffuse>0.72 0.55 0.35 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

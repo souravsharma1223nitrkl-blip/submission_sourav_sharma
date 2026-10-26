@@ -1,0 +1,51 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+
+# Motion smoothing: AMR-1 is the heavy unit -> gentler limits than the light AMR-2.
+/amr1/motion_smoother:
+  ros__parameters:
+    max_speed: 0.26            # m/s
+    max_accel: 0.30            # m/s^2 when standing still (less at higher speed)
+    max_decel: 0.50            # m/s^2 normal braking
+    max_jerk: 1.0              # m/s^3, how fast the acceleration itself may change
+    max_angular_accel: 1.5     # rad/s^2
+    payload_factor: 0.5        # limits x this while carrying the maximum payload
+    carrying_payload: false    # change at runtime: ros2 param set /amr1/motion_smoother carrying_payload true
+
+/amr2/motion_smoother:
+  ros__parameters:
+    max_speed: 0.35
+    max_accel: 1.00
+    max_decel: 1.50
+    max_jerk: 4.0
+    max_angular_accel: 3.0
+    payload_factor: 0.7
+    carrying_payload: false
+
+# Safety stop: halt if an obstacle is closer than d_safe = k * v^2 + d_min to the robot's
+# front edge (back edge when reversing)
+/amr1/safety_stop:
+  ros__parameters:
+    k: 2.0                     # s^2/m   (at 0.26 m/s: d_safe = 0.14 + 0.15 = 0.29 m)
+    d_min: 0.15                # m
+    half_width: 0.18           # m, half the robot width (0.153) + margin
+    body_front: 0.14           # m from the LiDAR to the front edge (Waffle Pi)
+    body_back: 0.14
+
+/amr2/safety_stop:
+  ros__parameters:
+    k: 2.0                     # (at 0.35 m/s: d_safe = 0.25 + 0.10 = 0.35 m)
+    d_min: 0.10
+    half_width: 0.12           # Burger half width (0.089) + margin
+    body_front: 0.08           # Burger
+    body_back: 0.11
+
+# Traffic control: AMR-2 (light scout) yields to AMR-1 (heavy, mission-critical)
+/traffic_control:
+  ros__parameters:
+    priority_robot: amr1
+    yielding_robot: amr2
+    look_ahead: 2.0            # m of each robot's planned path that is checked
+    conflict_distance: 0.7     # m, paths closer than this = conflict
+    release_after: 2.0         # s without conflict before AMR-2 may drive again

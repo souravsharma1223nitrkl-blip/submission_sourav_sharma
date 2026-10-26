@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<sdf version="1.6">
+  <model name="amr_mezzanine">
+    <static>true</static>
+    <link name="structure">
+
+      <!-- Platform: 2.45 x 1.83 x 0.10 box (pose = its centre) -->
+      <collision name="platform_collision">
+        <pose>1.225 0 0.05 0 0 0</pose>
+        <geometry><box><size>2.45 1.83 0.10</size></box></geometry>
+      </collision>
+      <visual name="platform_visual">
+        <pose>1.225 0 0.05 0 0 0</pose>
+        <geometry><box><size>2.45 1.83 0.10</size></box></geometry>
+        <material><ambient>0.45 0.47 0.52 1</ambient><diffuse>0.45 0.47 0.52 1</diffuse></material>
+      </visual>
+
+      <!-- Ramp: 5 cm slab tilted by atan(0.10 / 2.0) = 0.04996 rad (negative pitch = +x end up).
+           Its top surface runs from (x=-2.1, z=-0.005) to (x=0, z=0.10): the first 10 cm are
+           5 mm below the floor, so wheels roll onto a surface instead of hitting a box edge. -->
+      <collision name="ramp_collision">
+        <pose>-1.04875 0 0.02253 0 -0.049958 0</pose>
+        <geometry><box><size>2.1026 1.2 0.05</size></box></geometry>
+      </collision>
+      <visual name="ramp_visual">
+        <pose>-1.04875 0 0.02253 0 -0.049958 0</pose>
+        <geometry><box><size>2.1026 1.2 0.05</size></box></geometry>
+        <material><ambient>0.95 0.80 0.15 1</ambient><diffuse>0.95 0.80 0.15 1</diffuse></material>
+      </visual>
+
+      <!-- Railings, 0.40 m tall (above both LiDARs, even on the platform) -->
+      <!-- platform north + south edges -->
+      <collision name="rail_north_collision">
+        <pose>1.225 0.89 0.20 0 0 0</pose>
+        <geometry><box><size>2.45 0.05 0.40</size></box></geometry>
+      </collision>
+      <visual name="rail_north_visual">
+        <pose>1.225 0.89 0.20 0 0 0</pose>
+        <geometry><box><size>2.45 0.05 0.40</size></box></geometry>
+        <material><ambient>0.95 0.75 0.05 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse></material>
+      </visual>
+      <collision name="rail_south_collision">
+        <pose>1.225 -0.89 0.20 0 0 0</pose>
+        <geometry><box><size>2.45 0.05 0.40</size></box></geometry>
+      </collision>
+      <visual name="rail_south_visual">
+        <pose>1.225 -0.89 0.20 0 0 0</pose>
+        <geometry><box><size>2.45 0.05 0.40</size></box></geometry>
+        <material><ambient>0.95 0.75 0.05 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse></material>
+      </visual>
+      <!-- platform west edge, left and right of the 1.2 m ramp opening -->
+      <collision name="rail_west_n_collision">
+        <pose>0.025 0.7575 0.20 0 0 0</pose>
+        <geometry><box><size>0.05 0.315 0.40</size></box></geometry>
+      </collision>
+      <visual name="rail_west_n_visual">
+        <pose>0.025 0.7575 0.20 0 0 0</pose>
+        <geometry><box><size>0.05 0.315 0.40</size></box></geometry>
+        <material><ambient>0.95 0.75 0.05 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse></material>
+      </visual>
+      <collision name="rail_west_s_collision">
+        <pose>0.025 -0.7575 0.20 0 0 0</pose>
+        <geometry><box><size>0.05 0.315 0.40</size></box></geometry>
+      </collision>
+      <visual name="rail_west_s_visual">
+        <pose>0.025 -0.7575 0.20 0 0 0</pose>
+        <geometry><box><size>0.05 0.315 0.40</size></box></geometry>
+        <material><ambient>0.95 0.75 0.05 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse></material>
+      </visual>
+      <!-- both sides of the ramp -->
+      <collision name="rail_ramp_n_collision">
+        <pose>-1.0 0.625 0.20 0 0 0</pose>
+        <geometry><box><size>2.0 0.05 0.40</size></box></geometry>
+      </collision>
+      <visual name="rail_ramp_n_visual">
+        <pose>-1.0 0.625 0.20 0 0 0</pose>
+        <geometry><box><size>2.0 0.05 0.40</size></box></geometry>
+        <material><ambient>0.95 0.75 0.05 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse></material>
+      </visual>
+      <collision name="rail_ramp_s_collision">
+        <pose>-1.0 -0.625 0.20 0 0 0</pose>
+        <geometry><box><size>2.0 0.05 0.40</size></box></geometry>
+      </collision>
+      <visual name="rail_ramp_s_visual">
+        <pose>-1.0 -0.625 0.20 0 0 0</pose>
+        <geometry><box><size>2.0 0.05 0.40</size></box></geometry>
+        <material><ambient>0.95 0.75 0.05 1</ambient><diffuse>0.95 0.75 0.05 1</diffuse></material>
+      </visual>
+      <!-- (no rail on the east edge: the AWS building wall is there) -->
+
+      <!-- Heavy goods stored on the platform (0.5 m tall, standing at z = 0.10) -->
+      <collision name="goods_1_collision">
+        <pose>2.125 0.465 0.35 0 0 0</pose>
+        <geometry><box><size>0.55 0.60 0.50</size></box></geometry>
+      </collision>
+      <visual name="goods_1_visual">
+        <pose>2.125 0.465 0.35 0 0 0</pose>
+        <geometry><box><size>0.55 0.60 0.50</size></box></geometry>
+        <material><ambient>0.72 0.55 0.35 1</ambient><diffuse>0.72 0.55 0.35 1</diffuse></material>
+      </visual>
+      <collision name="goods_2_collision">
+        <pose>2.125 -0.465 0.35 0 0 0</pose>
+        <geometry><box><size>0.55 0.60 0.50</size></box></geometry>
+      </collision>
+      <visual name="goods_2_visual">
+        <pose>2.125 -0.465 0.35 0 0 0</pose>
+        <geometry><box><size>0.55 0.60 0.50</size></box></geometry>
+        <material><ambient>0.72 0.55 0.35 1</ambient><diffuse>0.72 0.55 0.35 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

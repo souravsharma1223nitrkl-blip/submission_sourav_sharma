@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<sdf version="1.6">
+  <model name="amr_crossover">
+    <static>true</static>
+    <link name="structure">
+
+      <!-- Up ramp: 5 cm slab tilted by atan(0.05) = 0.049958 rad; top surface from
+           (x=-1.1, z=-0.005) to (x=-0.2, z=0.04) -->
+      <collision name="ramp_up_collision">
+        <pose>-0.64875 0 -0.00747 0 -0.049958 0</pose>
+        <geometry><box><size>0.90112 2.3 0.05</size></box></geometry>
+      </collision>
+      <visual name="ramp_up_visual">
+        <pose>-0.64875 0 -0.00747 0 -0.049958 0</pose>
+        <geometry><box><size>0.90112 2.3 0.05</size></box></geometry>
+        <material><ambient>0.95 0.80 0.15 1</ambient><diffuse>0.95 0.80 0.15 1</diffuse></material>
+      </visual>
+
+      <!-- Flat top, 0.4 m long, top surface at z = 0.04 -->
+      <collision name="top_collision">
+        <pose>0 0 0.0175 0 0 0</pose>
+        <geometry><box><size>0.4 2.3 0.045</size></box></geometry>
+      </collision>
+      <visual name="top_visual">
+        <pose>0 0 0.0175 0 0 0</pose>
+        <geometry><box><size>0.4 2.3 0.045</size></box></geometry>
+        <material><ambient>0.25 0.25 0.25 1</ambient><diffuse>0.25 0.25 0.25 1</diffuse></material>
+      </visual>
+
+      <!-- Down ramp: mirror image of the up ramp -->
+      <collision name="ramp_down_collision">
+        <pose>0.64875 0 -0.00747 0 0.049958 0</pose>
+        <geometry><box><size>0.90112 2.3 0.05</size></box></geometry>
+      </collision>
+      <visual name="ramp_down_visual">
+        <pose>0.64875 0 -0.00747 0 0.049958 0</pose>
+        <geometry><box><size>0.90112 2.3 0.05</size></box></geometry>
+        <material><ambient>0.95 0.80 0.15 1</ambient><diffuse>0.95 0.80 0.15 1</diffuse></material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

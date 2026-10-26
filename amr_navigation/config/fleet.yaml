@@ -1,0 +1,26 @@
+robots:
+  amr1:                          # heavy lead / mapper (Waffle Pi)
+    robot_radius: 0.22
+    inflation_radius: 0.55
+    max_vel_x: 0.26
+    acc_lim_x: 0.3               # m/s^2, = the motion smoother (Section 3): heavy unit
+    decel_lim_x: 0.5
+    acc_lim_theta: 1.5           # rad/s^2
+    laser_range: 8.0
+    obstacle_range: 4.0          # m, how far the costmaps mark obstacles ...
+    raytrace_range: 5.0          # m, ... and clear them (further, so nothing stays behind)
+    map_update_interval: 1.0     # s, slam_toolbox map publish period
+    loop_closing: true           # 8 m LiDAR: reliable loop closures
+  amr2:                          # scout (Burger)
+    robot_radius: 0.12
+    inflation_radius: 0.40
+    max_vel_x: 0.35
+    acc_lim_x: 1.0               # light scout
+    decel_lim_x: 1.5
+    acc_lim_theta: 3.0
+    laser_range: 3.5
+    obstacle_range: 3.0
+    raytrace_range: 3.5          # = its LiDAR range
+    map_update_interval: 2.0
+    loop_closing: false          # 3.5 m LiDAR + identical bays: risk of false loop closures
+

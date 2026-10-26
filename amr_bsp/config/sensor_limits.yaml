@@ -1,0 +1,13 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+
+/amr1/sensor_validator:          # Waffle Pi body
+  ros__parameters:
+    max_angular_velocity: 2.2    # rad/s: max turn rate 1.82 rad/s + 20 % margin
+    scan_beams: 720              # LiDAR beams per scan
+
+/amr2/sensor_validator:          # Burger body
+  ros__parameters:
+    max_angular_velocity: 3.4    # rad/s: max turn rate 2.84 rad/s + 20 % margin
+    scan_beams: 360

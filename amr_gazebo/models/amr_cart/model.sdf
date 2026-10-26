@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Third-party robot / cart: kinematic box (moved by moving_obstacles.py). -->
+<sdf version="1.6">
+  <model name="amr_cart">
+    <static>false</static>
+    <link name="body">
+      <kinematic>true</kinematic>
+      <gravity>false</gravity>
+      <collision name="collision">
+        <pose>0 0 0.225 0 0 0</pose>
+        <geometry><box><size>0.6 0.45 0.45</size></box></geometry>
+      </collision>
+      <visual name="body">
+        <pose>0 0 0.225 0 0 0</pose>
+        <geometry><box><size>0.6 0.45 0.35</size></box></geometry>
+        <material><ambient>0.45 0.2 0.6 1</ambient><diffuse>0.45 0.2 0.6 1</diffuse></material>
+      </visual>
+      <visual name="beacon">
+        <pose>0 0 0.43 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.06</size></box></geometry>
+        <material><ambient>1 0.6 0 1</ambient><diffuse>1 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>
